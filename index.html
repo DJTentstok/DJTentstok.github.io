@@ -35,8 +35,6 @@
     .slide { min-width:100%; }
     .slide img { display:block; width:100%; height:390px; object-fit:cover; }
     .slide-caption { margin:0; padding:7px; background:#000080; font-size:.85rem; }
-    .slider-button { position:absolute; top:50%; z-index:1; padding:8px 12px; color:#000; background:var(--yellow); border:3px outset #fff; cursor:pointer; font-weight:bold; transform:translateY(-50%); }
-    .slider-button:hover { background:var(--aqua); }.previous { left:8px; }.next { right:8px; }
     .chat-box { width:min(100%,420px); margin:15px auto; overflow:hidden; border:4px ridge #ff00cc; background:#07075e; }
     .chat-box ws-widget { display:block; width:100%; max-width:100%; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
@@ -94,8 +92,6 @@
             <div class="slide"><img src="photos/tentstok-3.jpg"></div>
             <div class="slide"><img src="photos/tentstok-4.jpg"></div>
           </div>
-          <button class="slider-button previous" type="button" aria-label="Vorige foto">←</button>
-          <button class="slider-button next" type="button" aria-label="Volgende foto">→</button>
         </div>
         <hr>
         <h2>DJ Tentstok Chat</h2>
@@ -134,29 +130,19 @@
     <footer>© 1998-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik.</footer>
   </main>
   <script>
-  const slides = document.querySelector(".slides");
-  const allSlides = document.querySelectorAll(".slide");
-  const previousButton = document.querySelector(".previous");
-  const nextButton = document.querySelector(".next");
+    const slides = document.querySelector(".slides");
+    const allSlides = document.querySelectorAll(".slide");
 
-  let currentSlide = 0;
+    let currentSlide = 0;
 
-  function showSlide(number) {
-    currentSlide = (number + allSlides.length) % allSlides.length;
-    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-  }
+    function showSlide(number) {
+      currentSlide = (number + allSlides.length) % allSlides.length;
+      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
 
-  nextButton.addEventListener("click", () => {
-    showSlide(currentSlide + 1);
-  });
-
-  previousButton.addEventListener("click", () => {
-    showSlide(currentSlide - 1);
-  });
-
-  setInterval(() => {
-    showSlide(currentSlide + 1);
-  }, 2500);
+    setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 500);
   </script>
   <script>
   const contactForm = document.querySelector("#contact-form");
