@@ -45,6 +45,8 @@
     .slide { flex:0 0 100%; width:100%; height:100%; min-width:100%; }
     .slide img { display:block; width:100%; height:100%; object-fit:cover; object-position:center; }    .chat-box { width:min(100%,420px); margin:15px auto; overflow:hidden; border:4px ridge #ff00cc; background:#07075e; }
     .chat-box ws-widget { display:block; width:100%; max-width:100%; }
+    .musik-box { width:100%; margin:14px 0; padding:4px; overflow:hidden; border:3px ridge var(--pink); background:#07075e; }
+    .musik-box ws-widget { display:block; width:100%; max-width:100%; }
     .nav-notepad { width:100%; margin:14px 0 0; padding:4px; overflow:hidden; border:3px ridge var(--aqua); background:#07075e; }
     .nav-notepad iframe { display:block; width:100%; height:500px; border:1px solid #ccc; border-radius:0; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
@@ -102,6 +104,9 @@
         <a class="badge" href="https://djtentstok.atabook.org/" target="_blank" rel="noopener noreferrer">GASTENBOEK</a>
         <a class="badge" href="#">PRESS KIT</a>
         <a class="badge" href="#">RIDER</a>
+        <div class="musik-box">
+          <ws-widget type="musik" iid="17523" width="100%" embed="script"></ws-widget>
+        </div>
         <div class="nav-notepad">
           <iframe src="https://mintycake.nekoweb.org/NOTEPAD" title="DJ Tentstok Kladblok" scroll="false" loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
         </div>
