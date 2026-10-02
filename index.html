@@ -30,18 +30,16 @@
     .badge:hover,.badge:active { color:#000; background:#ffff00; border-color:#fff; box-shadow:0 0 14px #ffff00; }
     .welcome { min-height:420px; background:#001a70; text-align:center; }
     .welcome h2 { color:var(--yellow); font-size:1.55rem; text-shadow:2px 2px #f0c; }
-    .slider { position:relative; overflow:hidden; margin-top:16px; border:4px ridge #fff; background:#000; }
-    .slides { display:flex; transition:transform .6s ease; }
-    .slide { min-width:100%; }
-    .slide img { display:block; width:100%; height:390px; object-fit:cover; }
-    .slide-caption { margin:0; padding:7px; background:#000080; font-size:.85rem; }
-    .slider::after { content:""; position:absolute; inset:0; z-index:2; pointer-events:none; opacity:0; background:repeating-linear-gradient(0deg,rgba(0,255,255,.25) 0 2px,rgba(255,0,204,.18) 2px 4px,transparent 4px 7px); mix-blend-mode:screen; }
-    .slider.distort .slides { filter:url(#tentstok-warp); }
-    .slider.distort { animation:tentstokGlitch .55s steps(2,end),tentstokBend .55s ease-in-out; }
-    @keyframes tentstokBend { 0%,100% { border-radius:0; } 15% { border-radius:35% 4% 45% 8%; } 30% { border-radius:4% 40% 8% 35%; } 50% { border-radius:25% 5% 40% 20%; } 70% { border-radius:5% 35% 12% 40%; } }
-    @keyframes tentstokGlitch { 0% { filter:contrast(1) saturate(1) hue-rotate(0deg); transform:translateX(0) skewX(0); } 15% { filter:contrast(2.2) saturate(3) hue-rotate(80deg); transform:translateX(-7px) skewX(-3deg); } 30% { filter:contrast(.8) saturate(4) hue-rotate(-110deg); transform:translateX(8px) skewX(4deg); } 45% { filter:contrast(2.6) saturate(2) hue-rotate(150deg); transform:translateX(-4px) skewX(-2deg); } 65% { filter:contrast(1.4) saturate(2.5) hue-rotate(-40deg); transform:translateX(4px) skewX(1deg); } 100% { filter:contrast(1) saturate(1) hue-rotate(0deg); transform:translateX(0) skewX(0); } }
-    @keyframes scanlineGlitch { 0%,100% { opacity:0; } 15%,45%,70% { opacity:.9; } 30%,60% { opacity:.2; } }
-    @media (prefers-reduced-motion:reduce) { .slider.distort,.slider.distort::after { animation:none; } }
+    .slider { position:relative; overflow:hidden; border:4px ridge #fff; border-radius:0; background:#000; isolation:isolate; filter:contrast(1.08) saturate(1.12) drop-shadow(2px 0 rgba(255,0,80,.35)) drop-shadow(-2px 0 rgba(0,255,255,.32)); animation:vhsGlitch 4.6s steps(1,end) infinite; will-change:transform,filter; }
+    .slider::before { content:""; position:absolute; inset:0; z-index:3; pointer-events:none; opacity:.52; background:repeating-linear-gradient(0deg,rgba(255,255,255,.16) 0 1px,rgba(0,0,0,.18) 1px 3px,transparent 3px 5px),repeating-linear-gradient(0deg,transparent 0 17px,rgba(0,0,0,.26) 18px 20px,transparent 21px 31px),radial-gradient(circle at 13% 21%,rgba(255,255,255,.75) 0 1px,transparent 1.7px),radial-gradient(circle at 79% 64%,rgba(255,255,255,.55) 0 1px,transparent 1.5px),radial-gradient(circle at 37% 82%,rgba(255,0,190,.55) 0 1px,transparent 1.8px),repeating-linear-gradient(90deg,rgba(255,0,140,.08) 0 1px,transparent 1px 4px); background-size:auto,auto,67px 59px,83px 71px,97px 89px,auto; mix-blend-mode:screen; animation:vhsNoise .16s steps(2,end) infinite; }
+    .slider::after { content:""; position:absolute; left:0; right:0; top:-26px; height:20px; z-index:4; pointer-events:none; opacity:.9; background:linear-gradient(to bottom,transparent 0 8%,rgba(255,255,255,.13) 12%,rgba(255,0,180,.32) 26%,rgba(0,0,0,.85) 42%,rgba(0,255,255,.62) 59%,rgba(255,255,255,.2) 78%,transparent 100%); box-shadow:0 0 10px rgba(0,255,255,.35); animation:trackingLine 3.4s linear infinite; }
+    .slides { display:flex; transition:transform .7s cubic-bezier(.4,0,.2,1); filter:sepia(.06) contrast(1.04); }
+    .slide { flex:0 0 100%; min-width:100%; }
+    .slide img { display:block; width:100%; height:auto; }
+    @keyframes trackingLine { from { top:-26px; } to { top:calc(100% + 26px); } }
+    @keyframes vhsNoise { 0% { background-position:0 0,0 0,0 0,0 0,0 0,0 0; } 25% { background-position:2px -4px,0 3px,5px -2px,-3px 4px,2px 5px,-3px 1px; } 50% { background-position:-2px 3px,0 -2px,-4px 3px,4px -3px,-3px 1px,2px -2px; } 75% { background-position:4px 1px,0 4px,2px 4px,-4px -2px,5px -3px,-1px 3px; } 100% { background-position:0 0,0 0,0 0,0 0,0 0,0 0; } }
+    @keyframes vhsGlitch { 0%,7%,12%,26%,31%,52%,58%,77%,83%,100% { transform:translate(0,0) skewX(0); filter:contrast(1.08) saturate(1.12) hue-rotate(0deg) drop-shadow(2px 0 rgba(255,0,80,.35)) drop-shadow(-2px 0 rgba(0,255,255,.32)); } 8% { transform:translate(-2px,1px) skewX(-.8deg); } 9% { transform:translate(3px,-1px) skewX(.7deg); } 27% { transform:translate(-7px,1px) skewX(-2.3deg); filter:contrast(2.25) saturate(3.2) hue-rotate(72deg) drop-shadow(5px 0 #ff009d) drop-shadow(-5px 0 #00ffff); } 28% { transform:translate(6px,-2px) skewX(2deg); filter:contrast(.8) saturate(3.8) hue-rotate(-105deg) drop-shadow(4px 0 #ff00cc) drop-shadow(-4px 0 #00ffff); } 29% { transform:translate(-3px,1px) skewX(-1deg); filter:contrast(1.5) saturate(2) hue-rotate(35deg) drop-shadow(2px 0 #ff009d) drop-shadow(-2px 0 #00ffff); } 53% { transform:translate(3px,-1px) skewX(1deg); } 54% { transform:translate(-2px,1px) skewX(-.5deg); } 78% { transform:translate(-6px,0) skewX(-1.8deg); filter:contrast(2) saturate(3) hue-rotate(145deg) drop-shadow(5px 0 #ff00cc) drop-shadow(-5px 0 #00ffff); } 79% { transform:translate(5px,1px) skewX(1.5deg); filter:contrast(.85) saturate(4) hue-rotate(-80deg) drop-shadow(4px 0 #ff009d) drop-shadow(-4px 0 #00ffff); } 80% { transform:translate(-2px,0) skewX(-.5deg); } }
+    @media (prefers-reduced-motion:reduce) { .slider,.slider::before,.slider::after { animation:none; } .slides { transition:none; } }
     .chat-box { width:min(100%,420px); margin:15px auto; overflow:hidden; border:4px ridge #ff00cc; background:#07075e; }
     .chat-box ws-widget { display:block; width:100%; max-width:100%; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
@@ -170,27 +168,19 @@
       </aside>
     </section>
 
-    <footer>© 1998-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik.</footer>
+    <footer>© 1996-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik.</footer>
   </main>
-<script>
-  const slider = document.querySelector("#photo-slider");
-  const slides = document.querySelector(".slides");
-  const allSlides = document.querySelectorAll(".slide");
-
-  let currentSlide = 0;
-
+  <script>
+  const slides=document.querySelector(".slides");
+  const allSlides=document.querySelectorAll(".slide");
+  let currentSlide=0;
   function showSlide(number) {
-    currentSlide = (number + allSlides.length) % allSlides.length;
-    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-
-    slider.classList.remove("distort");
-    void slider.offsetWidth;
-    slider.classList.add("distort");
+    currentSlide=(number+allSlides.length)%allSlides.length;
+    slides.style.transform=`translateX(-${currentSlide*100}%)`;
   }
-
   setInterval(() => {
-    showSlide(currentSlide + 1);
-  }, 2000);
+    showSlide(currentSlide+1);
+  },2500);
   </script>
   <script>
   const contactForm = document.querySelector("#contact-form");
