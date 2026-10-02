@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="nl">
 </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="De website van DJ Tentstok.">
 <title>☆ DJ Tentstok ☆</title>
   <style>
     :root { --pink:#ff00cc; --blue:#0000ff; --yellow:#ffff00; --aqua:#00ffff; --panel:#07075e; }
@@ -38,8 +41,10 @@
   </style>
   
   <script src="https://u.widget.st/ar.js"></script>
-  <script src="https://u.widget.st/ar.js"></script>
+</head>
 
+<body>
+  
   <main class="page">
     <header>
       <div class="blink">★ Je bent nu op de website van... ★</div>
@@ -82,7 +87,7 @@
         <hr>
         <h2>DJ Tentstok Chat</h2>
         <ws-widget type="chat" iid="17503"></ws-widget>
-        
+
         <p class="tiny">Laatste update van deze website: 1 april 1998</p>
         <ws-widget type="hc" iid="17502"></ws-widget>
       </article>
@@ -96,5 +101,30 @@
 
     <footer>© 1998-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik.</footer>
   </main>
+  <script>
+  const slides = document.querySelector(".slides");
+  const allSlides = document.querySelectorAll(".slide");
+  const previousButton = document.querySelector(".previous");
+  const nextButton = document.querySelector(".next");
+
+  let currentSlide = 0;
+
+  function showSlide(number) {
+    currentSlide = (number + allSlides.length) % allSlides.length;
+    slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+  }
+
+  nextButton.addEventListener("click", () => {
+    showSlide(currentSlide - 1);
+  });
+
+  previousButton.addEventListener("click", () => {
+    showSlide(currentSlide + 1);
+  });
+
+  setInterval(() => {
+    showSlide(currentSlide + 1);
+  }, 2500);
+  </script>
 <body>
 <html>
