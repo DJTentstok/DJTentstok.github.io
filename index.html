@@ -42,6 +42,15 @@
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
     footer { padding:12px; color:var(--aqua); background:#000; border-top:4px ridge var(--pink); font-family:"Courier New",monospace; font-size:.82rem; }
     @media(max-width:700px) { .content { grid-template-columns:1fr; }.nav { order:2; }.right { order:3; }.welcome,.right { min-height:auto; } }
+    .right .contact-form { display:grid; gap:7px; width:100%; margin:12px 0 0; padding:0; text-align:left; }
+    .right .contact-form label { color:var(--yellow); font:bold .76rem Arial,sans-serif; }
+    .right .contact-form input,
+    .right .contact-form textarea { display:block; width:100%; min-width:0; padding:5px; color:#000; background:#fff; border:2px inset var(--aqua); border-radius:0; font:.75rem "Trebuchet MS",Arial,sans-serif; }
+    .right .contact-form textarea { min-height:105px; resize:vertical; }
+    .right .contact-form button { width:100%; padding:7px 3px; color:#000; background:var(--yellow); border:3px outset #fff; box-shadow:0 0 7px var(--yellow); cursor:pointer; font:bold .68rem Arial,sans-serif; text-transform:uppercase; }
+    .right .contact-form button:hover { background:var(--aqua); box-shadow:0 0 10px var(--aqua); }
+    .right .contact-form button:active { border-style:inset; }
+    .honeypot { position:absolute; left:-9999px; }
   </style>
   
   <script src="https://u.widget.st/ar.js"></script>
@@ -100,11 +109,16 @@
         <h2>LINKS</h2>
         <p><strong>Contact met DJ Tentstok's Management</strong></p>
         <ws-widget type="contact" iid="17505">
-          <form>
-            <input name="name" placeholder="Uw naam">
-            <input type="email" name="email" placeholder="Uw e-mailadres">
-            <textarea name="message" placeholder="Uw bericht"></textarea>
-            <button type="submit">Versturen</button>
+          <form action="PASTE-YOUR-FORM-SUBMISSION-URL-HERE" method="POST" class="contact-form">
+            <input name="name" type="text" placeholder="Jouw naam" aria-label="Jouw naam" required>
+
+            <input name="email" type="email" placeholder="Jouw e-mailadres" aria-label="Jouw e-mailadres" required>
+
+            <textarea name="message" placeholder="Jouw bericht voor DJ Tentstok..." aria-label="Jouw bericht" required></textarea>
+
+            <input type="text" name="website" tabindex="-1" autocomplete="off" class="honeypot">
+
+            <button type="submit">★ VERSTUUR ★</button>
           </form>
 </ws-widget>
         <hr>
