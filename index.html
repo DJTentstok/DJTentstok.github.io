@@ -73,6 +73,7 @@
     .pong-button:focus-visible { outline:2px solid var(--yellow); outline-offset:2px; }
     .pong-footer { margin:8px 0 0; color:#3a9c4d; font-size:.48rem; }
     @media (max-width:700px) { .pong-game { max-width:420px; margin:12px auto; padding:10px; } .pong-topline { font-size:.7rem; } .pong-score { font-size:1rem; } .pong-message { font-size:.72rem; } .pong-button { padding:10px 4px; font-size:.7rem; } .pong-footer { font-size:.58rem; } }
+    @media (min-width:701px) { .nav { grid-column:1; grid-row:1; } .welcome { grid-column:2; grid-row:1; } .right { grid-column:3; grid-row:1; } }
   </style>
   <script src="https://u.widget.st/ar.js"></script>
 </head>
@@ -97,8 +98,6 @@
         <a class="badge" href="#">PRESS KIT</a>
         <a class="badge" href="#">RIDER</a>
       </aside>
-      <hr>
-
       <article class="panel welcome">
         <h2>MvdM</h2>
         <p><strong>De medewerker van deze maand is:...</strong></p>
@@ -182,13 +181,14 @@
   },2500);
   </script>
   <script>
-  const contactForm = document.querySelector("#contact-form");
-  const formThanks = document.querySelector("#form-thanks");
-
-  contactForm.addEventListener("submit", () => {
-    formThanks.hidden = false;
-    contactForm.reset();
-  });
+  const contactForm=document.querySelector(".contact-form");
+  const formThanks=document.querySelector("#form-thanks");
+  if(contactForm&&formThanks) {
+    contactForm.addEventListener("submit",() => {
+      formThanks.hidden=false;
+      contactForm.reset();
+    });
+  }
   </script>
   <script>
   (() => {
