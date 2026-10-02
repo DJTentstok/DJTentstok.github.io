@@ -35,6 +35,8 @@
     .slide-caption { margin:0; padding:7px; background:#000080; font-size:.85rem; }
     .slider-button { position:absolute; top:50%; z-index:1; padding:8px 12px; color:#000; background:var(--yellow); border:3px outset #fff; cursor:pointer; font-weight:bold; transform:translateY(-50%); }
     .slider-button:hover { background:var(--aqua); }.previous { left:8px; }.next { right:8px; }
+    .chat-box { width:min(100%,420px); margin:15px auto; overflow:hidden; border:4px ridge #ff00cc; background:#07075e; }
+    .chat-box ws-widget { display:block; width:100%; max-width:100%; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
     footer { padding:12px; color:var(--aqua); background:#000; border-top:4px ridge var(--pink); font-family:"Courier New",monospace; font-size:.82rem; }
     @media(max-width:700px) { .content { grid-template-columns:1fr; }.nav { order:2; }.right { order:3; }.welcome,.right { min-height:auto; } }
@@ -89,7 +91,9 @@
         <ws-widget type="chat" iid="17503"></ws-widget>
 
         <p class="tiny">Laatste update van deze website: 1 april 1998</p>
-        <ws-widget type="hc" iid="17502"></ws-widget>
+        <div class="chat-box">
+          <ws-widget type="chat" iid="17503"></ws-widget>
+        </div>
       </article>
 
       <aside class="panel right">
