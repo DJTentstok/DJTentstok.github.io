@@ -58,6 +58,20 @@
     .honeypot { position:absolute; left:-9999px; }
     .form-thanks { margin:10px 0 0; padding:7px 4px; color:#000; background:var(--aqua); border:3px outset #fff; box-shadow:0 0 10px var(--aqua); font:bold .7rem Arial,sans-serif; text-align:center; animation:blink .8s steps(2,start) infinite; }
     .form-response { display:none; }
+    .pong-game { width:100%; margin:10px 0; padding:6px; color:#75ff88; background:#020702; border:3px ridge #3cff62; box-shadow:0 0 8px #34ed58,inset 0 0 18px rgba(30,190,55,.18); font-family:"Courier New",monospace; text-align:center; outline:none; }
+    .pong-topline { display:flex; justify-content:space-between; gap:3px; padding:0 0 5px; color:#75ff88; border-bottom:1px solid #267d38; font-size:.52rem; font-weight:bold; letter-spacing:.02em; }
+    .pong-score { display:flex; justify-content:space-between; gap:4px; margin:7px 3px; color:#a4ffac; font-size:.74rem; font-weight:bold; text-shadow:0 0 7px #35ff5d; }
+    .pong-score b { color:#fff; }
+    .pong-screen { overflow:hidden; border:4px ridge #1c4b27; background:#000; line-height:0; }
+    .pong-screen canvas { display:block; width:100%; height:auto; image-rendering:pixelated; }
+    .pong-message { min-height:24px; margin:7px 0; color:#a4ffac; font-size:.56rem; font-weight:bold; line-height:1.2; }
+    .pong-controls { display:grid; grid-template-columns:1fr 1fr; gap:5px; }
+    .pong-button { min-width:0; padding:7px 2px; color:#062209; background:#62ff78; border:2px outset #b2ffb9; box-shadow:0 0 7px rgba(91,255,113,.75); cursor:pointer; font:700 .55rem "Courier New",monospace; touch-action:none; }
+    .pong-button:hover { color:#000; background:var(--aqua); box-shadow:0 0 9px var(--aqua); }
+    .pong-button:active { border-style:inset; transform:translateY(1px); }
+    .pong-button:focus-visible { outline:2px solid var(--yellow); outline-offset:2px; }
+    .pong-footer { margin:8px 0 0; color:#3a9c4d; font-size:.48rem; }
+    @media (max-width:700px) { .pong-game { max-width:420px; margin:12px auto; padding:10px; } .pong-topline { font-size:.7rem; } .pong-score { font-size:1rem; } .pong-message { font-size:.72rem; } .pong-button { padding:10px 4px; font-size:.7rem; } .pong-footer { font-size:.58rem; } }
   </style>
   
   <script src="https://u.widget.st/ar.js"></script>
@@ -129,8 +143,30 @@
           </p>
 
           <iframe name="form-response" class="form-response" title="Formulierverzending"></iframe>
-</ws-widget>
-        <hr>
+        </ws-widget>
+                <hr>
+          <h2>TENTSTOK PONG</h2>
+            <div class="pong-game" id="tentstok-pong" tabindex="0" aria-label="DJ Tentstok Pong game">
+              <div class="pong-topline"><span>◉ PONG.EXE</span><span>CPU: ON</span></div>
+              <div class="pong-score"><span>JIJ <b id="pong-you-score">00</b></span><span>CPU <b id="pong-cpu-score">00</b></span></div>
+
+              <div class="pong-screen">
+                <canvas id="pong-canvas" width="300" height="200" aria-label="Pong speelveld"></canvas>
+              </div>
+
+              <p class="pong-message" id="pong-message" aria-live="polite">DRUK START</p>
+
+              <div class="pong-controls">
+                <button type="button" class="pong-button pong-up">▲ OMHOOG</button>
+                <button type="button" class="pong-button pong-down">▼ OMLAAG</button>
+                <button type="button" class="pong-button pong-start">▶ START</button>
+                <button type="button" class="pong-button pong-restart">↻ OPNIEUW</button>
+              </div>
+
+              <p class="pong-footer">© 1984 TENTSTOK SYSTEMS</p>
+            </div>
+            <hr>
+
       </aside>
     </section>
 
@@ -165,6 +201,207 @@
     contactForm.reset();
   });
   </script>
+  <script>
+  (() => {
+    const game = document.querySelector("#tentstok-pong");
+    const canvas = document.querySelector("#pong-canvas");
+    if (!game || !canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    const youScore = document.querySelector("#pong-you-score");
+    const cpuScore = document.querySelector("#pong-cpu-score");
+    const message = document.querySelector("#pong-message");
+    const upButton = document.querySelector(".pong-up");
+    const downButton = document.querySelector(".pong-down");
+    const startButton = document.querySelector(".pong-start");
+    const restartButton = document.querySelector(".pong-restart");
+
+    const W = 300;
+    const H = 200;
+    const paddleH = 46;
+    const paddleW = 5;
+    const ballR = 3;
+    const maxY = H - paddleH;
+    const keys = { up:false, down:false };
+    const state = { leftY:77, rightY:77, ballX:150, ballY:100, vx:2.2, vy:1.25, leftScore:0, rightScore:0, running:false, last:performance.now() };
+
+    const clamp = (number, min, max) => Math.max(min, Math.min(max, number));
+    const formatScore = (number) => String(number).padStart(2, "0");
+
+    function updateScore() {
+      youScore.textContent = formatScore(state.leftScore);
+      cpuScore.textContent = formatScore(state.rightScore);
+    }
+
+    function resetBall(direction = Math.random() > .5 ? 1 : -1) {
+      state.ballX = W / 2;
+      state.ballY = H / 2;
+      state.vx = direction * (1.85 + Math.random() * .5);
+      state.vy = (Math.random() * 2.4 - 1.2) || .75;
+    }
+
+    function startGame() {
+      if (state.running) return;
+      state.running = true;
+      state.last = performance.now();
+      message.textContent = "JIJ: W/S OF KNOPPEN";
+      startButton.disabled = true;
+      startButton.textContent = "● SPEELT";
+      game.focus();
+    }
+
+    function restartGame() {
+      state.leftScore = 0;
+      state.rightScore = 0;
+      state.leftY = 77;
+      state.rightY = 77;
+      updateScore();
+      resetBall();
+      message.textContent = "NIEUWE WEDSTRIJD!";
+      startButton.disabled = false;
+      startButton.textContent = "▶ START";
+      startGame();
+    }
+
+    function draw() {
+      ctx.fillStyle = "#020802";
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgba(70,255,102,.08)";
+      for (let y = 0; y < H; y += 3) ctx.fillRect(0, y, W, 1);
+
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = "#44ff69";
+      ctx.strokeStyle = "#31f05a";
+      ctx.fillStyle = "#74ff88";
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 5]);
+      ctx.beginPath();
+      ctx.moveTo(W / 2, 3);
+      ctx.lineTo(W / 2, H - 3);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillRect(9, state.leftY, paddleW, paddleH);
+      ctx.fillRect(W - 14, state.rightY, paddleW, paddleH);
+      ctx.beginPath();
+      ctx.arc(state.ballX, state.ballY, ballR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      const vignette = ctx.createRadialGradient(W / 2, H / 2, 35, W / 2, H / 2, 190);
+      vignette.addColorStop(0, "rgba(0,0,0,0)");
+      vignette.addColorStop(1, "rgba(0,0,0,.58)");
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0, 0, W, H);
+    }
+
+    function step(time) {
+      const dt = Math.min((time - state.last) / 16.67, 2);
+      state.last = time;
+
+      if (state.running) {
+        const playerSpeed = 3.2 * dt;
+        if (keys.up) state.leftY -= playerSpeed;
+        if (keys.down) state.leftY += playerSpeed;
+        state.leftY = clamp(state.leftY, 0, maxY);
+
+        const cpuTarget = state.ballX > 128 ? state.ballY - paddleH / 2 : 77;
+        const cpuSpeed = 1.86 * dt;
+        if (state.rightY + paddleH / 2 < cpuTarget - 5) state.rightY += cpuSpeed;
+        if (state.rightY + paddleH / 2 > cpuTarget + 5) state.rightY -= cpuSpeed;
+        state.rightY = clamp(state.rightY, 0, maxY);
+
+        state.ballX += state.vx * dt;
+        state.ballY += state.vy * dt;
+
+        if (state.ballY < ballR || state.ballY > H - ballR) {
+          state.vy *= -1;
+          state.ballY = clamp(state.ballY, ballR, H - ballR);
+        }
+
+        const leftHit = state.vx < 0 && state.ballX - ballR <= 14 && state.ballX + ballR >= 9 && state.ballY >= state.leftY && state.ballY <= state.leftY + paddleH;
+        const rightHit = state.vx > 0 && state.ballX + ballR >= W - 14 && state.ballX - ballR <= W - 9 && state.ballY >= state.rightY && state.ballY <= state.rightY + paddleH;
+
+        if (leftHit || rightHit) {
+          const paddleY = leftHit ? state.leftY : state.rightY;
+          state.vx *= -1.045;
+          state.vy = clamp(state.vy + ((state.ballY - (paddleY + paddleH / 2)) / (paddleH / 2)) * .62, -3.8, 3.8);
+          state.ballX = leftHit ? 18 : W - 18;
+        }
+
+        if (state.ballX < -8 || state.ballX > W + 8) {
+          const playerScored = state.ballX > W;
+          if (playerScored) state.leftScore += 1;
+          else state.rightScore += 1;
+          updateScore();
+
+          if (state.leftScore >= 9 || state.rightScore >= 9) {
+            state.running = false;
+            startButton.disabled = false;
+            startButton.textContent = "▶ START";
+            message.textContent = state.leftScore >= 9 ? "JIJ WINT! ★" : "CPU WINT!";
+          } else {
+            resetBall(playerScored ? -1 : 1);
+          }
+        }
+      }
+
+      draw();
+      requestAnimationFrame(step);
+    }
+
+    function setHold(direction, active) {
+      keys[direction] = active;
+      if (active) startGame();
+    }
+
+    function bindHold(button, direction) {
+      button.addEventListener("pointerdown", (event) => {
+        event.preventDefault();
+        button.setPointerCapture?.(event.pointerId);
+        setHold(direction, true);
+      });
+      ["pointerup", "pointercancel", "pointerleave"].forEach((eventName) => {
+        button.addEventListener(eventName, () => setHold(direction, false));
+      });
+    }
+
+    bindHold(upButton, "up");
+    bindHold(downButton, "down");
+    startButton.addEventListener("click", startGame);
+    restartButton.addEventListener("click", restartGame);
+
+    window.addEventListener("keydown", (event) => {
+      if (event.code === "KeyW" || event.code === "ArrowUp") {
+        event.preventDefault();
+        setHold("up", true);
+      }
+      if (event.code === "KeyS" || event.code === "ArrowDown") {
+        event.preventDefault();
+        setHold("down", true);
+      }
+      if (event.code === "Space") {
+        event.preventDefault();
+        startGame();
+      }
+    }, { passive:false });
+
+    window.addEventListener("keyup", (event) => {
+      if (event.code === "KeyW" || event.code === "ArrowUp") keys.up = false;
+      if (event.code === "KeyS" || event.code === "ArrowDown") keys.down = false;
+    });
+
+    window.addEventListener("blur", () => {
+      keys.up = false;
+      keys.down = false;
+    });
+
+    resetBall();
+    updateScore();
+    requestAnimationFrame(step);
+  })();
+</script>
 </body>
 <svg aria-hidden="true" width="0" height="0" style="position:absolute">
   <filter id="tentstok-warp" x="-25%" y="-25%" width="150%" height="150%">
