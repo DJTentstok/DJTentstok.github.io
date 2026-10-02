@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="nl"
-<head>
+<html lang="nl">
+</head>
 <title>☆ DJ Tentstok ☆</title>
   <style>
     :root { --pink:#ff00cc; --blue:#0000ff; --yellow:#ffff00; --aqua:#00ffff; --panel:#07075e; }
@@ -28,12 +28,12 @@
     .slide-caption { margin:0; padding:7px; background:#000080; font-size:.85rem; }
     .slider-button { position:absolute; top:50%; z-index:1; padding:8px 12px; color:#000; background:var(--yellow); border:3px outset #fff; cursor:pointer; font-weight:bold; transform:translateY(-50%); }
     .slider-button:hover { background:var(--aqua); }.previous { left:8px; }.next { right:8px; }
-    .counter { display:inline-block; padding:4px 7px; color:#00ff00; background:#111; border:3px inset #aaa; font-family:monospace; font-size:1.15rem; letter-spacing:2px; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
     footer { padding:12px; color:var(--aqua); background:#000; border-top:4px ridge var(--pink); font-family:"Courier New",monospace; font-size:.82rem; }
     @media(max-width:700px) { .content { grid-template-columns:1fr; }.nav { order:2; }.right { order:3; }.welcome,.right { min-height:auto; } }
   </style>
-
+  
+  <script src="https://u.widget.st/ar.js"></script>
 
   <main class="page">
     <header>
@@ -44,7 +44,9 @@
 
     <section class="content">
       <aside class="panel nav">
-        <h2>DJ Tentstok </h2>
+        <h2 class="nav-home">
+          <a href="index.html">HOME</a>
+        </h2>
         <a class="badge" href="index.html">HOME</a>
         <a class="badge" href="over.html">OVER</a>
         <a class="badge" href="muziek.html">MUZIEK</a>
@@ -77,7 +79,7 @@
         <p><strong>Krabbel alstublieft.</strong></p>
         <p class="tiny">Laatste update van deze website: 1 april 1998</p>
         <p>Jij bent bezoeker nummer:</p>
-        <div class="counter" id="visitor-counter">0001337</div>
+        <ws-widget type="hc" iid="17502"></ws-widget>
       </article>
 
       <aside class="panel right">
