@@ -1,398 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl"
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="De website van DJ Tentstok.">
-  <title>☆ DJ Tentstok ☆</title>
+<title>☆ DJ Tentstok ☆</title>
   <style>
-    /* DJ Tentstok Thema */
-    :root {
-      --neon-pink: #ff00cc;
-      --electric-blue: #0000ff;
-      --acid-yellow: #ffff00;
-      --aqua: #00ffff;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      color: #fff;
-      font-family: "Trebuchet MS", Arial, sans-serif;
-      background-color: #060040;
-      background-image: url("camo.png");
-      background-size: 300px 300px;
-      text-align: center;
-    }
-
-    .page {
-      width: min(920px, calc(100% - 24px));
-      margin: 18px auto;
-      border: 6px ridge var(--aqua);
-      background: #000080;
-      box-shadow: 0 0 0 5px #ff00cc, 0 0 26px #00ffff;
-    }
-
-    header {
-    padding: 14px 10px;
-    border-bottom: 5px ridge #ffff00;
-
-    background: linear-gradient(
-    120deg,
-      #ffff00,
-      #a900ff,
-      #ff00cc,
-      #ffff00,
-      #7200b8
-    );
-
-    background-size: 400% 400%;
-    animation: purpleYellowMove 7s ease-in-out infinite;
-    }
-
-    @keyframes purpleYellowMove {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
-    }
-
-    .blink {
-      color: var(--aqua);
-      font-weight: bold;
-      text-shadow: 2px 2px #000;
-      animation: blink 0.8s steps(2, start) infinite;
-    }
-
-    @keyframes blink { 50% { visibility: hidden; } }
-
-    h1 {
-      margin: 4px 0;
-      color: var(--aqua);
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(2rem, 6vw, 4.8rem);
-      font-weight: normal;
-      letter-spacing: 2px;
-      text-shadow: 4px 4px #000, 7px 7px var(--electric-blue);
-    }
-
-    marquee {
-      margin: 7px auto;
-      width: 95%;
-      padding: 5px;
-      color: #fff;
-      font-family: "Arial Black", sans-serif;
-      font-weight: bold;
-    }
-
-    .content {
-      display: grid;
-      grid-template-columns: 220px 1fr 220px;
-      gap: 12px;
-      padding: 13px;
-      text-align: left;
-    }
-
-    .panel {
-      padding: 10px;
-      border: 4px ridge #fff;
-      background: #07075e;
-    }
-
-    .panel h2 {
-      margin: -3px -3px 9px;
-      padding: 5px;
-      color: #000;
-      background: var(--aqua);
-      border: 3px outset #fff;
-      font-family: "Arial Black";
-      font-size: 1rem;
-      text-align: center;
-    }
-
-    .nav a, .links a {
-      display: block;
-      margin: 8px 0;
-      color: #ffff00;
-      font-weight: bold;
-    }
-
-    a:visited { color: #ff80df; }
-    a:hover { color: #00ffff; background: #bbff01; }
-
-    .welcome {
-      min-height: 420px;
-      color: #fff;
-      background: #001a70;
-      text-align: center;
-    }
-
-    .welcome h2 {
-      color: #ffff00;
-      font-size: 1.55rem;
-      text-shadow: 2px 2px #f0c;
-    }
-
-    .counter {
-      display: inline-block;
-      padding: 4px 7px;
-      color: #00ff00;
-      background: #111;
-      border: 3px inset #aaa;
-      font-family: monospace;
-      font-size: 1.15rem;
-      letter-spacing: 2px;
-    }
-
-    .badge,
-    .badge:link,
-    .badge:visited {
-      display: block;
-      margin: 10px auto;
-      padding: 7px 4px;
-
-      color: #ffffff;
-      background: linear-gradient(
-        120deg,
-        #250061,
-        #8b00d6,
-        #ff00cc,
-        #5a00a0
-      );
-
-      background-size: 250% 250%;
-      border: 3px outset #00ffff;
-      box-shadow: 0 0 8px #ff00cc;
-
-      font: bold 0.78rem Arial, sans-serif;
-      text-align: center;
-      text-decoration: none;
-
-      animation: badgeGradientMove 5s ease-in-out infinite;
-    }
-
-    .badge:hover,
-    .badge:active {
-      color: #000000;
-      background: #ffff00;
-      border-color: #ffffff;
-      box-shadow: 0 0 14px #ffff00;
-    }
-
-    @keyframes badgeGradientMove {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    .tiny { font-size: 0.78rem; }
-
-    footer {
-      padding: 12px;
-      background: #000;
-      border-top: 4px ridge #ff00cc;
-      color: #00ffff;
-      font-family: "Courier New", monospace;
-      font-size: 0.82rem;
-    }
-
-    @media (max-width: 700px) {
-      .content { grid-template-columns: 1fr; }
-      .nav { order: 2; }
-      .right { order: 3; }
-      .welcome { min-height: auto; }
-    }
-    .slider {
-      position: relative;
-      overflow: hidden;
-      margin-top: 16px;
-      border: 4px ridge #fff;
-      background: #000;
-    }
-
-    .slides {
-      display: flex;
-      transition: transform 0.6s ease;
-    }
-
-    .slide {
-      min-width: 100%;
-    }
-
-    .slide img {
-      width: 100%;
-      height: 300px;
-      display: block;
-      object-fit: cover;
-    }
-
-    .slider-button {
-      position: absolute;
-      top: 50%;
-      z-index: 1;
-      padding: 10px 12px;
-      color: #000;
-      background: #ffff00;
-      border: 3px outset #fff;
-      cursor: pointer;
-      font-weight: bold;
-      transform: translateY(-50%);
-    }
-
-    .slider-button:hover {
-      background: #00ffff;
-    }
-
-    .previous {
-      left: 8px;
-    }
-
-    .next {
-      right: 8px;
-    }
-
-    .slide-caption {
-      margin: 0;
-      padding: 7px;
-      color: #fff;
-      background: #000080;
-      font-size: 0.85rem;
-      text-align: center;
-    }
-
+    :root { --pink:#ff00cc; --blue:#0000ff; --yellow:#ffff00; --aqua:#00ffff; --panel:#07075e; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:#fff; font-family:"Trebuchet MS",Arial,sans-serif; text-align:center; background:#060040 url("camo.png"); background-size:300px 300px; }
+    .page { width:min(920px,calc(100% - 24px)); margin:18px auto; border:6px ridge var(--aqua); background:#000080; box-shadow:0 0 0 5px var(--pink),0 0 26px var(--aqua); }
+    header { padding:14px 10px; border-bottom:5px ridge var(--yellow); background:linear-gradient(120deg,#ffff00,#a900ff,#ff00cc,#ffff00,#7200b8); background-size:400% 400%; animation:headerMove 7s ease-in-out infinite; }
+    @keyframes headerMove { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    .blink { color:var(--aqua); font-weight:bold; text-shadow:2px 2px #000; animation:blink .8s steps(2,start) infinite; }
+    @keyframes blink { 50% { visibility:hidden; } }
+    h1 { margin:4px 0; color:var(--aqua); font-family:Impact,"Arial Black",sans-serif; font-size:clamp(2rem,6vw,4.8rem); font-weight:normal; letter-spacing:2px; text-shadow:4px 4px #000,7px 7px var(--blue); }
+    marquee { width:95%; margin:7px auto; padding:5px; color:#fff; font-family:"Arial Black",sans-serif; font-weight:bold; }
+    .content { display:grid; grid-template-columns:220px minmax(0,1fr) 220px; gap:12px; padding:13px; text-align:left; }
+    .panel { padding:10px; border:4px ridge #fff; background:var(--panel); }
+    .panel h2 { margin:-3px -3px 9px; padding:5px; color:#000; background:var(--aqua); border:3px outset #fff; font-family:"Arial Black",Arial,sans-serif; font-size:1rem; text-align:center; }
+    .badge,.badge:link,.badge:visited { display:block; margin:10px auto; padding:7px 4px; color:#fff; background:linear-gradient(120deg,#250061,#8b00d6,#ff00cc,#5a00a0); background-size:250% 250%; border:3px outset var(--aqua); box-shadow:0 0 8px var(--pink); font:bold .78rem Arial,sans-serif; text-align:center; text-decoration:none; animation:badgeMove 5s ease-in-out infinite; }
+    @keyframes badgeMove { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    .badge:hover,.badge:active { color:#000; background:#ffff00; border-color:#fff; box-shadow:0 0 14px #ffff00; }
+    .welcome { min-height:420px; background:#001a70; text-align:center; }
+    .welcome h2 { color:var(--yellow); font-size:1.55rem; text-shadow:2px 2px #f0c; }
+    .slider { position:relative; overflow:hidden; margin-top:16px; border:4px ridge #fff; background:#000; }
+    .slides { display:flex; transition:transform .6s ease; }
+    .slide { min-width:100%; }
+    .slide img { display:block; width:100%; height:300px; object-fit:cover; }
+    .slide-caption { margin:0; padding:7px; background:#000080; font-size:.85rem; }
+    .slider-button { position:absolute; top:50%; z-index:1; padding:8px 12px; color:#000; background:var(--yellow); border:3px outset #fff; cursor:pointer; font-weight:bold; transform:translateY(-50%); }
+    .slider-button:hover { background:var(--aqua); }.previous { left:8px; }.next { right:8px; }
+    .counter { display:inline-block; padding:4px 7px; color:#00ff00; background:#111; border:3px inset #aaa; font-family:monospace; font-size:1.15rem; letter-spacing:2px; }
+    .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
+    footer { padding:12px; color:var(--aqua); background:#000; border-top:4px ridge var(--pink); font-family:"Courier New",monospace; font-size:.82rem; }
+    @media(max-width:700px) { .content { grid-template-columns:1fr; }.nav { order:2; }.right { order:3; }.welcome,.right { min-height:auto; } }
   </style>
-</head>
-<body>
+
+
   <main class="page">
     <header>
       <div class="blink">★ Je bent nu op de website van... ★</div>
       <h1>DJ Tentstok</h1>
-      <marquee behavior="scroll" direction="left" scrollamount="7">
-        ☆ Muziek - Edits - Remixes- Pionieren - Kansloos Zuipen - Meer ☆
-      </marquee>
+      <marquee direction="left">☆ DJ Tentstok - DJ Tracks - Edits - Fenomeen - Rising Superstar ☆</marquee>
     </header>
 
     <section class="content">
       <aside class="panel nav">
-        <h2> DINGEN </h2>
+        <h2>DJ Tentstok </h2>
+        <a class="badge" href="index.html">HOME</a>
         <a class="badge" href="over.html">OVER</a>
         <a class="badge" href="muziek.html">MUZIEK</a>
-        <a class="badge" href="#">LINKS</a>
+        <a class="badge" href="#links">LINKS</a>
         <a class="badge" href="mailto:DJTenstok@proton.me">CONTACT</a>
-        <a class="badge" href="presskit.html">PRESS KIT</a>
-        <a class="badge" href="rider.html">RIDER</a>
+        <a class="badge" href="#presskit.html">PRESS KIT</a>
+        <a class="badge" href="#rider.html">RIDER</a>
       </aside>
 
       <article class="panel welcome">
-        <h2 id="about"> MvdM</h2>
-        <p> <strong> De medewerker van deze maand is:... </strong> </p>
+        <h2>MvdM</h2>
+        <p><strong>De medewerker van deze maand is:...</strong></p>
         <img src="cookiegif.gif" alt="Animated cookie" width="150">
-        <p> <strong> Harold! </strong> </p>
-        <p> Bedankt voor je harde inzet, Harold. </p>
+        <p><strong>Harold!</strong></p>
+        <p>Bedankt voor je harde inzet, Harold.</p>
         <hr>
-
-        <h2 id="interests">Spotlight </h2>
-<div class="slider" id="photo-slider">
-  <div class="slides">
-    <div class="slide">
-      <img src="photos/tentstok-1.png" alt="Fotoke">
-      <p class="slide-caption">Trouwe Fans</p>
-    </div>
-
-    <div class="slide">
-      <img src="photos/tentstok-2.png" alt="Nog een fotoke">
-      <p class="slide-caption">DJ Tentstok Himself</p>
-    </div>
-
-    <div class="slide">
-      <img src="photos/tentstok-3.jpg" alt="Weer een fotoke">
-    </div>
-
-    <div class="slide">
-      <img src="photos/tentstok-4.jpg" alt="Sjonge wat een fotokes">
-    </div>
-  </div>
-
-  <button class="slider-button previous" type="button" aria-label="Vorige foto">
-    ←
-  </button>
-
-  <button class="slider-button next" type="button" aria-label="Volgende foto">
-    →
-  </button>
-</div>
-
-      <article class="panel welcome">
-        <h2 id="about"> Gastenboek</h2>
-        <p> <strong> Krabbel alstublieft. </strong> </p>
-
+        <h2>Spotlight</h2>
+        <div class="slider" id="photo-slider">
+          <div class="slides">
+            <div class="slide"><img src="photos/tentstok-1.png" alt="Trouwe fans"><p class="slide-caption">Trouwe Fans</p></div>
+            <div class="slide"><img src="photos/tentstok-2.jpg" alt="DJ Tentstok"></div>
+            <div class="slide"><img src="photos/tentstok-3.jpg" alt="DJ Tentstok live"></div>
+            <div class="slide"><img src="photos/tentstok-4.jpg" alt="DJ Tentstok optreden"></div>
+          </div>
+          <button class="slider-button previous" type="button" aria-label="Vorige foto">←</button>
+          <button class="slider-button next" type="button" aria-label="Volgende foto">→</button>
+        </div>
         <hr>
-
+        <h2>Gastenboek</h2>
+        <p><strong>Krabbel alstublieft.</strong></p>
         <p class="tiny">Laatste update van deze website: 1 april 1998</p>
         <p>Jij bent bezoeker nummer:</p>
         <div class="counter" id="visitor-counter">0001337</div>
       </article>
 
-      <aside class="panel right" id="links">
-        <p> [Hier komt een chatwidget] </p>
+      <aside class="panel right">
+        <h2>LINKS</h2>
+        <p><strong>DJ Tentstok online</strong></p>
+        <p class="tiny">Hier komt een chatwidget, atabook of andere belangrijke internetcommunicatie.</p>
         <hr>
-
+        <p class="tiny">No haters pls.</p>
       </aside>
     </section>
 
-    <footer>
-      © 1998-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik. <br>
-    </footer>
+    <footer>© 1998-2026 DJ Tentstok. Alle rechten voorbehouden, denk ik.</footer>
   </main>
-
-  <script>
-    // Nepteller. 
-    const key = 'Visits';
-    const stored = Number(localStorage.getItem(key) || 14448);
-    const visits = stored + 1;
-    localStorage.setItem(key, visits);
-    document.getElementById('visitor-counter').textContent = String(visits).padStart(7, '0');
-
-    const slides = document.querySelector(".slides");
-    const allSlides = document.querySelectorAll(".slide");
-    const previousButton = document.querySelector(".previous");
-    const nextButton = document.querySelector(".next");
-
-    let currentSlide = 0;
-
-    function showSlide(number) {
-      currentSlide = (number + allSlides.length) % allSlides.length;
-      slides.style.transform = `translateX(-${currentSlide * 100}%)`;
-    }
-
-    nextButton.addEventListener("click", () => {
-      showSlide(currentSlide + 1);
-    });
-
-    previousButton.addEventListener("click", () => {
-      showSlide(currentSlide - 1);
-    });
-
-    setInterval(() => {
-      showSlide(currentSlide + 1);
-    }, 2500);
-
-  </script>
-
-</body>
-</html>
+<body>
+<html>
