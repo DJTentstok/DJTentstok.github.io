@@ -51,6 +51,8 @@
     .right .contact-form button:hover { background:var(--aqua); box-shadow:0 0 10px var(--aqua); }
     .right .contact-form button:active { border-style:inset; }
     .honeypot { position:absolute; left:-9999px; }
+    .form-thanks { margin:10px 0 0; padding:7px 4px; color:#000; background:var(--aqua); border:3px outset #fff; box-shadow:0 0 10px var(--aqua); font:bold .7rem Arial,sans-serif; text-align:center; animation:blink .8s steps(2,start) infinite; }
+    .form-response { display:none; }
   </style>
   
   <script src="https://u.widget.st/ar.js"></script>
@@ -119,6 +121,11 @@
 
             <button type="submit">★ VERSTUUR ★</button>
           </form>
+          <p id="form-thanks" class="form-thanks" hidden aria-live="polite">
+            ★ BERICHT VERSTUURD! BEDANKT! ★
+          </p>
+
+          <iframe name="form-response" class="form-response" title="Formulierverzending"></iframe>
 </ws-widget>
         <hr>
       </aside>
@@ -150,6 +157,15 @@
   setInterval(() => {
     showSlide(currentSlide + 1);
   }, 2500);
+  </script>
+  <script>
+  const contactForm = document.querySelector("#contact-form");
+  const formThanks = document.querySelector("#form-thanks");
+
+  contactForm.addEventListener("submit", () => {
+    formThanks.hidden = false;
+    contactForm.reset();
+  });
   </script>
 </body>
 </html>
