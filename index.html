@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="nl">
-</head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="De website van DJ Tentstok.">
@@ -62,8 +62,8 @@
         <a class="badge" href="muziek.html">MUZIEK</a>
         <a class="badge" href="#links">LINKS</a>
         <a class="badge" href="mailto:DJTenstok@proton.me">CONTACT</a>
-        <a class="badge" href="#presskit.html">PRESS KIT</a>
-        <a class="badge" href="#rider.html">RIDER</a>
+        <a class="badge" href="#">PRESS KIT</a>
+        <a class="badge" href="#">RIDER</a>
       </aside>
 
       <article class="panel welcome">
@@ -115,16 +115,16 @@
   }
 
   nextButton.addEventListener("click", () => {
-    showSlide(currentSlide - 1);
+    showSlide(currentSlide + 1);
   });
 
   previousButton.addEventListener("click", () => {
-    showSlide(currentSlide + 1);
+    showSlide(currentSlide - 1);
   });
 
   setInterval(() => {
     showSlide(currentSlide + 1);
   }, 2500);
   </script>
-<body>
-<html>
+</body>
+</html>
