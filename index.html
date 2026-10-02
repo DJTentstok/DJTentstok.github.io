@@ -40,6 +40,10 @@
     @keyframes vhsNoise { 0% { background-position:0 0,0 0,0 0,0 0,0 0,0 0; } 25% { background-position:2px -4px,0 3px,5px -2px,-3px 4px,2px 5px,-3px 1px; } 50% { background-position:-2px 3px,0 -2px,-4px 3px,4px -3px,-3px 1px,2px -2px; } 75% { background-position:4px 1px,0 4px,2px 4px,-4px -2px,5px -3px,-1px 3px; } 100% { background-position:0 0,0 0,0 0,0 0,0 0,0 0; } }
     @keyframes vhsGlitch { 0%,7%,12%,26%,31%,52%,58%,77%,83%,100% { transform:translate(0,0) skewX(0); filter:contrast(1.08) saturate(1.12) hue-rotate(0deg) drop-shadow(2px 0 rgba(255,0,80,.35)) drop-shadow(-2px 0 rgba(0,255,255,.32)); } 8% { transform:translate(-2px,1px) skewX(-.8deg); } 9% { transform:translate(3px,-1px) skewX(.7deg); } 27% { transform:translate(-7px,1px) skewX(-2.3deg); filter:contrast(2.25) saturate(3.2) hue-rotate(72deg) drop-shadow(5px 0 #ff009d) drop-shadow(-5px 0 #00ffff); } 28% { transform:translate(6px,-2px) skewX(2deg); filter:contrast(.8) saturate(3.8) hue-rotate(-105deg) drop-shadow(4px 0 #ff00cc) drop-shadow(-4px 0 #00ffff); } 29% { transform:translate(-3px,1px) skewX(-1deg); filter:contrast(1.5) saturate(2) hue-rotate(35deg) drop-shadow(2px 0 #ff009d) drop-shadow(-2px 0 #00ffff); } 53% { transform:translate(3px,-1px) skewX(1deg); } 54% { transform:translate(-2px,1px) skewX(-.5deg); } 78% { transform:translate(-6px,0) skewX(-1.8deg); filter:contrast(2) saturate(3) hue-rotate(145deg) drop-shadow(5px 0 #ff00cc) drop-shadow(-5px 0 #00ffff); } 79% { transform:translate(5px,1px) skewX(1.5deg); filter:contrast(.85) saturate(4) hue-rotate(-80deg) drop-shadow(4px 0 #ff009d) drop-shadow(-4px 0 #00ffff); } 80% { transform:translate(-2px,0) skewX(-.5deg); } }
     @media (prefers-reduced-motion:reduce) { .slider,.slider::before,.slider::after { animation:none; } .slides { transition:none; } }
+    .slider { height:auto!important; min-height:0!important; max-height:none!important; aspect-ratio:auto!important; }
+    .slides { height:auto!important; min-height:0!important; max-height:none!important; align-items:flex-start; }
+    .slide { height:auto!important; min-height:0!important; max-height:none!important; aspect-ratio:auto!important; }
+    .slide img { display:block; width:100%; height:auto!important; min-height:0!important; max-height:none!important; object-fit:contain; }
     .chat-box { width:min(100%,420px); margin:15px auto; overflow:hidden; border:4px ridge #ff00cc; background:#07075e; }
     .chat-box ws-widget { display:block; width:100%; max-width:100%; }
     .tiny { font-size:.78rem; }.right { min-height:420px; }.right p { line-height:1.45; }.right strong { color:var(--yellow); }
@@ -136,10 +140,7 @@
 
             <button type="submit">★ VERSTUUR ★</button>
           </form>
-          <p id="form-thanks" class="form-thanks" hidden aria-live="polite">
-            ★ BERICHT VERSTUURD! BEDANKT! ★
-          </p>
-
+          <p id="form-thanks" class="form-thanks" hidden aria-live="polite">★ BERICHT VERSTUURD! BEDANKT! ★</p>
           <iframe name="form-response" class="form-response" title="Formulierverzending"></iframe>
         </ws-widget>
                 <hr>
@@ -234,7 +235,7 @@
       if (state.running) return;
       state.running = true;
       state.last = performance.now();
-      message.textContent = "JIJ: W/S OF KNOPPEN";
+      message.textContent = "JIJ: W/S, PIJLTJES OF KNOPPEN";
       startButton.disabled = true;
       startButton.textContent = "● SPEELT";
       game.focus();
@@ -393,14 +394,4 @@
   })();
 </script>
 </body>
-<svg aria-hidden="true" width="0" height="0" style="position:absolute">
-  <filter id="tentstok-warp" x="-25%" y="-25%" width="150%" height="150%">
-    <feTurbulence type="fractalNoise" baseFrequency=".012 .035" numOctaves="3" seed="666" result="noise">
-      <animate attributeName="baseFrequency" values=".008 .02;.045 .11;.015 .06;.07 .015;.008 .02" dur=".55s" repeatCount="indefinite"></animate>
-    </feTurbulence>
-    <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="B">
-      <animate attributeName="scale" values="0;75;25;110;40;0" dur=".55s" repeatCount="indefinite"></animate>
-    </feDisplacementMap>
-  </filter>
-</svg>
 </html>
